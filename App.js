@@ -71,7 +71,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
-        source={require("./assets/bg-image.jpg")}
+        source={require("./assets/light-bg.png")}
         style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
         <View
@@ -111,7 +111,7 @@ export default function App() {
               </View>
               <Image
                 source={require("./assets/refresh.png")}
-                style={{ width: 30, height: 40 }}
+                style={{ width: 25, height: 25 }}
               />
             </View>
           )}
@@ -126,7 +126,7 @@ export default function App() {
               }}
             >
               <Image
-                source={require("./assets/moon.png")}
+                source={require("./assets/sun.png")}
                 style={{ width: 25, height: 25 }}
               />
               <Text
@@ -138,7 +138,7 @@ export default function App() {
                   letterSpacing: 3,
                 }}
               >
-                GOOD EVENING
+                GOOD MORNING
               </Text>
             </View>
 
@@ -211,10 +211,7 @@ export default function App() {
 
               <View
                 style={{
-                  backgroundColor: "#000",
-
-                  padding: 10,
-                  borderRadius: 99999,
+                  padding: 5,
                 }}
               >
                 <Image
@@ -224,8 +221,8 @@ export default function App() {
                       : require("./assets/arrow-down.png")
                   }
                   style={{
-                    height: 10,
-                    width: 10,
+                    height: 25,
+                    width: 25,
                   }}
                 />
               </View>
