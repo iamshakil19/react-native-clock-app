@@ -16,7 +16,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
-const RowView = ({ label, value }) => {
+const RowView = ({ label, value, isDark }) => {
+  console.log(isDark);
   return (
     <View
       style={{
@@ -31,7 +32,7 @@ const RowView = ({ label, value }) => {
         <Text
           style={{
             fontFamily: "Inter-Regular",
-            color: "#303030",
+            color: isDark ? "#fff" : "#303030",
             fontSize: 11,
             letterSpacing: 2,
             textTransform: "uppercase",
@@ -44,7 +45,7 @@ const RowView = ({ label, value }) => {
         <Text
           style={{
             fontFamily: "Inter-Bold",
-            color: "#303030",
+            color: isDark ? "#fff" : "#303030",
             fontSize: 18,
             letterSpacing: 2,
           }}
@@ -63,6 +64,7 @@ export default function App() {
   });
 
   const [showMore, setShowMore] = useState(false);
+  const [isDark, setDark] = useState(false);
 
   if (!fontsLoaded) {
     return <ActivityIndicator />;
@@ -71,9 +73,48 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
-        source={require("./assets/light-bg.png")}
+        source={
+          isDark
+            ? require("./assets/dark-bg.jpg")
+            : require("./assets/light-bg.png")
+        }
         style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+        >
+          <View></View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                setDark(!isDark);
+              }}
+              style={{
+                flexDirection: "row",
+                borderRadius: 30,
+                marginTop: 10,
+                marginRight: 10,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={
+                  isDark
+                    ? require("./assets/sun.png")
+                    : require("./assets/moon.png")
+                }
+                style={{
+                  height: 30,
+                  width: 28,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View
           style={{
             flex: 1,
@@ -126,8 +167,12 @@ export default function App() {
               }}
             >
               <Image
-                source={require("./assets/sun.png")}
-                style={{ width: 25, height: 25 }}
+                source={
+                  isDark
+                    ? require("./assets/moon.png")
+                    : require("./assets/sun.png")
+                }
+                style={{ width: 25, height: 27 }}
               />
               <Text
                 style={{
@@ -138,7 +183,7 @@ export default function App() {
                   letterSpacing: 3,
                 }}
               >
-                GOOD MORNING
+                {isDark ? "GOOD EVENING" : "GOOD MORNING"}
               </Text>
             </View>
 
@@ -152,7 +197,7 @@ export default function App() {
                     color: "white",
                   }}
                 >
-                  11.30
+                  {isDark ? "23:14" : "11.37"}
                 </Text>
                 <Text
                   style={{
@@ -206,7 +251,7 @@ export default function App() {
                   letterSpacing: 2,
                 }}
               >
-                {showMore ? "Less" : "More"}
+                {showMore ? "LESS" : "MORE"}
               </Text>
 
               <View
@@ -235,16 +280,20 @@ export default function App() {
         {showMore && (
           <View
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: isDark ? "#000" : "#fff",
               opacity: 0.8,
               paddingVertical: 48,
               paddingHorizontal: 20,
             }}
           >
-            <RowView label={"Current Timezone"} value={"Europe/London"} />
-            <RowView label={"Day of the year"} value={"295"} />
-            <RowView label={"Day of the week"} value={"5"} />
-            <RowView label={"Week Number"} value={"42"} />
+            <RowView
+              label={"Current Timezone"}
+              value={"Europe/London"}
+              isDark={isDark}
+            />
+            <RowView label={"Day of the year"} value={"295"} isDark={isDark} />
+            <RowView label={"Day of the week"} value={"5"} isDark={isDark} />
+            <RowView label={"Week Number"} value={"42"} isDark={isDark} />
           </View>
         )}
       </ImageBackground>
